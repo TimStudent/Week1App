@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Week1App</string>
+    <string name="enter_email_address">Email Address</string>
+    <string name="enter_password">Create Password</string>
+    <string name="enter_password_again">Repeat Password</string>
+    <string name="greenflag_customers_can_create_accounts_to_access">GreenFlag customers can create accounts to access</string>
+    <string name="password_hint">Your password should have a minimum of 8 characters and at least one number, one uppercase and one lowercase character. You can use special characters.</string>
+    <string name="one_of_the_passwords_you_entered_wasn_t_valid">One of the passwords you entered wasn\'t valid</string>
+    <string name="an_account_already_exists_for_this_email_address">An account already exists for this email address</string>
+</resources>
