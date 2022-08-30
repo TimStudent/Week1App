@@ -1,13 +1,14 @@
 package com.example.week1app
 
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.example.week1app.databinding.ActivityMain2Binding
@@ -19,8 +20,44 @@ class MainActivity2 : AppCompatActivity() {
     private var m_pass: EditText? = null
     private var re_enterpass = ""
     private var m_reenterpass: EditText? = null
-    private fun printer(){
-        supportActionBar?.title = "Test"
+    private var listOfEmails: MutableSet<String> = hashSetOf()
+
+    private fun saver(email : String, password : String){
+        val sharedPref: SharedPreferences = getSharedPreferences("MyPref", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        val secondSharedPref: SharedPreferences = getSharedPreferences("secondSharedPref",
+            Context.MODE_PRIVATE)
+        val secondEditor = secondSharedPref.edit()
+        editor.apply{
+            putString("email", email)
+            putString("password", password)
+            apply()
+        }
+        if (listOfEmails.contains(email)){
+            //do nothing
+            }
+        else{
+            secondEditor.apply {
+                listOfEmails.add(email)
+                putStringSet("aaa", listOfEmails)
+                Log.d(TAG, listOfEmails.toString())
+                apply()
+            }
+        }
+    }
+    private fun loader(){
+        val sharedPref: SharedPreferences = getSharedPreferences("MyPref", Context.MODE_PRIVATE)
+        val email = sharedPref.getString("email", null)
+        val password = sharedPref.getString("password", null)
+        val secondSharedPref: SharedPreferences = getSharedPreferences("secondSharedPref",
+        Context.MODE_PRIVATE)
+        val listofstuff = secondSharedPref.getStringSet("aaa",null)
+        binding.InputEmailText.setText(email)
+        binding.InputPasswordText.setText(password)
+        if (listofstuff != null) {
+            listOfEmails = listofstuff
+        }
+
     }
     companion object {
         const val KEY_K = ""
@@ -50,8 +87,11 @@ class MainActivity2 : AppCompatActivity() {
         m_email = binding.InputEmailText
         m_pass = binding.InputPasswordText
         m_reenterpass = binding.InputPasswordAgainText
+
+        loader()
         binding.nextButton.setOnClickListener{
-             printer()
+            saver(binding.InputEmailText.text.toString(), binding.InputPasswordText.text.toString())
+            //Log.d(TAG,"${binding.InputEmailText.text}")
         }
     }
 
@@ -134,7 +174,7 @@ class MainActivity2 : AppCompatActivity() {
             binding.nextButton.isClickable = false
             binding.nextButton.alpha = 0.5F
         }
-
+        binding.AccountHint.isVisible = listOfEmails.contains(binding.InputEmailText.text.toString())
     }
 
 
