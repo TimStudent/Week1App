@@ -40,7 +40,7 @@ class MainActivity2 : AppCompatActivity() {
             secondEditor.apply {
                 listOfEmails.add(email)
                 putStringSet("aaa", listOfEmails)
-                Log.d(TAG, listOfEmails.toString())
+                //Log.d(TAG, listOfEmails.toString())
                 apply()
             }
         }
@@ -56,8 +56,8 @@ class MainActivity2 : AppCompatActivity() {
         binding.InputPasswordText.setText(password)
         if (listofstuff != null) {
             listOfEmails = listofstuff
+            Log.d(TAG, listofstuff.toString())
         }
-
     }
     companion object {
         const val KEY_K = ""
@@ -91,7 +91,7 @@ class MainActivity2 : AppCompatActivity() {
         loader()
         binding.nextButton.setOnClickListener{
             saver(binding.InputEmailText.text.toString(), binding.InputPasswordText.text.toString())
-            //Log.d(TAG,"${binding.InputEmailText.text}")
+            Log.d(TAG,"${listOfEmails.toString()}")
         }
     }
 
@@ -155,6 +155,7 @@ class MainActivity2 : AppCompatActivity() {
         if (binding.InputPasswordText.text.toString() == binding.InputPasswordAgainText.text.toString()) {
             if(binding.InputPasswordAgainText.text.toString().contains
                     ("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$".toRegex())){
+                binding.passwordHint.isInvisible=true
                 binding.InputPasswordAgainText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.tick,0)
                 binding.InputPasswordAgainText.setBackgroundResource(R.drawable.greenborder)
                 binding.nextButton.isClickable = true
@@ -162,6 +163,7 @@ class MainActivity2 : AppCompatActivity() {
 
             }
             else{
+                binding.passwordHint.isInvisible=false
                 binding.InputPasswordAgainText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.cross,0)
                 binding.InputPasswordAgainText.setBackgroundResource(R.drawable.border)
                 binding.nextButton.isClickable = false
@@ -169,12 +171,17 @@ class MainActivity2 : AppCompatActivity() {
             }
         }
         else{
+            binding.passwordHint.isInvisible=false
             binding.InputPasswordAgainText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.cross,0)
             binding.InputPasswordAgainText.setBackgroundResource(R.drawable.border)
             binding.nextButton.isClickable = false
             binding.nextButton.alpha = 0.5F
         }
         binding.AccountHint.isVisible = listOfEmails.contains(binding.InputEmailText.text.toString())
+        if (listOfEmails.contains(binding.InputEmailText.text.toString())) {
+            binding.InputEmailText.setBackgroundResource(R.drawable.border)
+            binding.InputEmailText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.cross,0)
+            }
     }
 
 
