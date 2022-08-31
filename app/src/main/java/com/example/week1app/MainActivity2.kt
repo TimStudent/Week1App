@@ -22,25 +22,26 @@ class MainActivity2 : AppCompatActivity() {
     private var m_reenterpass: EditText? = null
     private var listOfEmails: MutableSet<String> = hashSetOf()
 
-    private fun saver(email : String, password : String){
+    private fun saver(email : String, password : String) {
+
         val sharedPref: SharedPreferences = getSharedPreferences("MyPref", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        val secondSharedPref: SharedPreferences = getSharedPreferences("secondSharedPref",
-            Context.MODE_PRIVATE)
+        val secondSharedPref: SharedPreferences = getSharedPreferences(
+            "secondSharedPref",
+            Context.MODE_PRIVATE
+        )
         val secondEditor = secondSharedPref.edit()
-        editor.apply{
+        editor.apply {
             putString("email", email)
             putString("password", password)
             apply()
         }
-        if (listOfEmails.contains(email)){
+        if (listOfEmails.contains(email)) {
             //do nothing
-            }
-        else{
+        } else {
             secondEditor.apply {
                 listOfEmails.add(email)
                 putStringSet("aaa", listOfEmails)
-                //Log.d(TAG, listOfEmails.toString())
                 apply()
             }
         }
@@ -51,12 +52,12 @@ class MainActivity2 : AppCompatActivity() {
         val password = sharedPref.getString("password", null)
         val secondSharedPref: SharedPreferences = getSharedPreferences("secondSharedPref",
         Context.MODE_PRIVATE)
-        val listofstuff = secondSharedPref.getStringSet("aaa",null)
+        var listofstuff = secondSharedPref.getStringSet("aaa",null)
         binding.InputEmailText.setText(email)
         binding.InputPasswordText.setText(password)
+
         if (listofstuff != null) {
-            listOfEmails = listofstuff
-            Log.d(TAG, listofstuff.toString())
+            listOfEmails = listofstuff.toMutableSet()
         }
     }
     companion object {
@@ -91,7 +92,7 @@ class MainActivity2 : AppCompatActivity() {
         loader()
         binding.nextButton.setOnClickListener{
             saver(binding.InputEmailText.text.toString(), binding.InputPasswordText.text.toString())
-            Log.d(TAG,"${listOfEmails.toString()}")
+            //Log.d(TAG,"${listOfEmails.toString()}")
         }
     }
 
