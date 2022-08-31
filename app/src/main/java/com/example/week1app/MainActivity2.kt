@@ -128,7 +128,12 @@ class MainActivity2 : AppCompatActivity() {
     override fun onUserInteraction() {
         super.onUserInteraction()
         if (binding.InputEmailText.text.isNotEmpty() && binding.InputEmailText.text.toString()
-                .contains("@") && binding.InputEmailText.text.toString().contains(".com")
+                .contains("@") &&
+            binding.InputEmailText.text.toString().contains(".com") &&
+            binding.InputEmailText.text.toString().contains(".edu") &&
+            binding.InputEmailText.text.toString().contains(".net") &&
+            binding.InputEmailText.text.toString().contains(".gov") &&
+            binding.InputEmailText.text.toString().contains(".org")
         ) {
             binding.InputEmailText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0)
             binding.InputEmailText.setBackgroundResource(R.drawable.greenborder)
