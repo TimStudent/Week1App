@@ -2,11 +2,8 @@ package com.example.week1app
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.Service
 import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Build
-import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -19,6 +16,7 @@ class MyService : FirebaseMessagingService() {
         super.onNewToken(token)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onMessageReceived(message: RemoteMessage) {
         Log.d(TAG,"Receiving Notification")
         super.onMessageReceived(message)

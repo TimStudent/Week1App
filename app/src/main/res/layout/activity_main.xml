@@ -71,7 +71,6 @@
         android:background="@drawable/gradient_button_background"
         android:text="Create an account"
         android:textColor="@color/black"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
